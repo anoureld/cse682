@@ -178,6 +178,7 @@ vector<ITest*> TestLibrary::getMcLibrary()
 
 void TestLibrary::addTestToLibrary()
 {
+	cout << "Start adding test to library...." << endl;
 	string tName;
 	bool tBool1, tBool2, tBool3;
 	string bs1, bs2, bs3;
@@ -228,6 +229,7 @@ void TestLibrary::addTestToLibrary()
 	fileTestData.push_back(TestData(tName, tBool1, tBool2, tBool3));
 	ITest* lcTestOb = new Test(tName, tBool1, tBool2, tBool3);
 	mcLibrary.push_back(lcTestOb);
+	cout << "Test added to library" << endl;
 }
 
 bool TestLibrary::validateTestData(string input)
