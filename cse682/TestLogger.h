@@ -1,46 +1,34 @@
+#ifndef TESTLOGGER_H
+#define TESTLOGGER_H
 /*******************************************************************************
 ** PROJECT:
 ** Test Harness, CSE 682 Software Engineering.
-**
 ** NAME: TestLogger.h
-**
 ** DESCRIPTION:
-** This file includes function definitions and data members for the Test Logger
+** This file includes function definitions and data members for the Test Logger.
 ** software component.
-**
-** DESIGN CONSIDERATIONS:
-** None
-**
 ********************************************************************************
 ** VERSION HISTORY
-**
 **    Rev         Author              Date
 ** -----------------------------------------------------------------------------
-**
-**    1.0         M. Noureldine       8-Nov-2021
-**                Initial delivery
-**
+**    1.0         Maher Noureldine       3/12/2022
 *******************************************************************************/
-
-#ifndef TESTLOGGER_H
-#define TESTLOGGER_H
 
 #include <string>
 #include <vector>
+#include "ILogger.h"
 
 using std::string;
 using std::vector;
 
-class TestLogger
+class TestLogger : public ILogger
 {
-public:
-
+	public:
 	/**
 	 * Constructor
 	 * Create TestLogger Object
 	 */
 	TestLogger();
-
 	/**
 	* This method loads parameters into vector <msTestOutput> allTestOutputs data member.
 	* @param anTestID Test Object identifier
@@ -51,7 +39,6 @@ public:
 	* @param arEndTime Time test execution ends
 	*/
 	void logTestResult(int anTestID, string acTestName, bool abTestResult, string acExceptionsThrown, string acStartTimepoint, string acEndTimepoint);
-
 	/**
 	* Print test results.
 	* @param detailLevel 1 = Pass/Fail;
@@ -59,13 +46,12 @@ public:
 	*                    3 = Pass/Fail, application specific messages, date and time
 	*/
 	void printTestResults(int aDetailLevel);
-
 	/**
 	* This method clears data member values in preparation for the execution of another
 	* test sequence.
 	*/
 	void clearTestLog(bool abPrintMsg);
-
+	private:
 	// Grouped variables that define the results of a single test
 	struct msTestOutput
 	{
@@ -76,10 +62,8 @@ public:
 		string mcStartTimepoint;
 		string mcEndTimepoint;
 	};
-
 	// Vector of msTestOutput
 	// Stores multiple sets of test results
 	vector <msTestOutput> mcAllTestOutputs;
 };
-
 #endif // TESTLOGGER_H

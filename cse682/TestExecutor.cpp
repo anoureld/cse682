@@ -1,22 +1,15 @@
 /*******************************************************************************
 ** PROJECT:
 ** Test Harness, CSE 687 Object-Oriented Design, Fall 2021
-**
 ** NAME: TestExecutor.cpp
-**
 ** DESCRIPTION:
 ** This file provides functionality for the Test Executor software
-** component. It is responsible for accepting a callable test object and 
-** invoking that object within the scope of a try catch block. 
-**
-**
+** component.
 ********************************************************************************
 ** VERSION HISTORY
-**
 **    Rev         Author              Date
 ** -----------------------------------------------------------------------------
-**
-**
+**    1.0        Maher/Sab             13/3/2022
 *******************************************************************************/
 
 #include <iostream>
@@ -39,14 +32,14 @@ using namespace std::chrono;
 void TestExecutor::executeTestSequence(TestSequence& arcTestSequence, TestLogger& arcTestLogger)
 {
    // If test sequence is empty print error message
-   if (arcTestSequence.mcSequence.empty()) 
+   if (arcTestSequence.getMcSequence().empty()) 
    {
       cout << "\n\tNo tests in current sequence - aborting test sequence execution\n";
    }
    else // Test sequence not empty then invoke callable object and store output
    {
       // Invoke callable Test Objects
-      for (auto lcCurrentTest : arcTestSequence.mcSequence)
+      for (auto lcCurrentTest : arcTestSequence.getMcSequence())
       {
          // Store test output
          int lnTestID = lcCurrentTest->getTestID();
@@ -103,7 +96,6 @@ void TestExecutor::executeTestSequence(TestSequence& arcTestSequence, TestLogger
              << " " << setfill('0') << setw(2) << lsNewTime.tm_hour << ":" << setw(2)
              << lsNewTime.tm_min << ":" << setw(2) << lsNewTime.tm_sec;
          lcEndTimepoint = lcEndStream.str();
-
          // Provide test output to logger
          arcTestLogger.logTestResult(lnTestID, lcTestName, lbTestResult, lcExceptionsThrown, lcStartTimepoint, lcEndTimepoint);
       }

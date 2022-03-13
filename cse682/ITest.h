@@ -1,24 +1,17 @@
 #ifndef ITEST_H_
 #define ITEST_H_
-
 /*
 * PROJECT:
 ** Test Harness, CSE 682 Software Engineering.
-**
 ** NAME: ITest.h
-**
 ** DESCRIPTION:
 ** defines the contract for Test drivers for the test harness
-**
-**
 ********************************************************************************
 ** VERSION HISTORY
-**
-**    Rev         Author              Date
+**    Rev         Author							Date
 ** -----------------------------------------------------------------------------
-**    1.0          Sab                  2/5
-**
-*/
+**    1.0          Sabyson Fernandes              2/5/2022
+******************************************************************************/
 
 #include <string>
 using std::string;

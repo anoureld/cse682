@@ -1,25 +1,18 @@
+#ifndef TESTEXECUTOR_H
+#define TESTEXECUTOR_H
 /*******************************************************************************
 ** PROJECT:
 ** Test Harness, CSE 682 Software Engineering.
-**
 ** NAME: TestExecutor.h
-**
 ** DESCRIPTION:
 ** This file includes function definitions and data members for the Test Executor
 ** software component.
-**
-**
 ********************************************************************************
 ** VERSION HISTORY
-**
 **    Rev         Author              Date
 ** -----------------------------------------------------------------------------
 **   1.0        Sab Fernandes           3/01/2022
-**
 *******************************************************************************/
-
-#ifndef TESTEXECUTOR_H
-#define TESTEXECUTOR_H
 
 #include "Test.h"
 #include "TestSequence.h"

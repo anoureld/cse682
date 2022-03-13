@@ -3,3 +3,9 @@ Test2:Function 1 v1.1,true,false,false
 Test3:Function 2 v1.0,false,false,false
 Test4:Function 2 v1.1,false,true,false
 Test5:Function 3 v1.0,true,false,true
+Test6:HiShelleh,false,true,false
+Test7:Func2,false,true,false
+Test8:maher two,false,false,false
+Test9:Sabyson Test Function,false,false,false
+Test10:Sabyson Test Func,false,false,false
+Test11:temp maher,false,true,false

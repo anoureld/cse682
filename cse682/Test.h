@@ -1,25 +1,19 @@
+#ifndef TEST_H
+#define TEST_H
 /*******************************************************************************
 ** PROJECT:
 ** Test Harness, CSE 682 Software Engineering.
-**
 ** NAME: Test.h
-**
 ** DESCRIPTION:
 ** This file includes function definitions and data members for the Test 
 ** software component.
-**
-**
 ********************************************************************************
 ** VERSION HISTORY
-**
-**    Rev         Author              Date
+**    Rev         Author                               Date
 ** -----------------------------------------------------------------------------
-**    1.0          Sab                  2/5
-**
+**    1.0          Sabyson Fernandes                  2/5/2022
 *******************************************************************************/
 
-#ifndef TEST_H
-#define TEST_H
 
 #include "ITest.h"
 #include <string>
@@ -28,8 +22,7 @@ using std::string;
 
 class Test : public ITest
 {
-public:
-
+    public:
    /**
     * Default Constructor
     * Create TestSequence Object
@@ -86,25 +79,20 @@ public:
    */
 	bool operator()(void);
 
-private:
+    private:
    // A static (shared class-wide) integer representing the number of test objects.
 	static int snNumUnitTests;
-
    // An integer representing the Test objects unique reference number.
 	int mnTestID;
-
    // A string name for Test object.
 	string mcTestName;
-
    // A boolean that allows Test Object creator to determine if 
    // simulated test will throw an exception.
 	bool mbThrowsException;
-
     // A boolean that allows Test Object creator to determine if 
     // simulated test will demonstrate a pause in execution
     // (to validate correct implementation of timepoint stamps).
     bool mbPauseExecution;
-
    // A boolean that allows Test Object creator to set simulated test
    // output. True = Pass, False = Failed.
 	bool mbTestResult;

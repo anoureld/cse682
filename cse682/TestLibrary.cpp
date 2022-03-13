@@ -1,29 +1,24 @@
 /*******************************************************************************
 ** PROJECT:
 ** Test Harness, CSE 682 Software Engineering.
-**
-**
 ** NAME: TestLibrary.cpp
-**
 ** DESCRIPTION:
 ** This file provides functionality for the Test Libray software
 ** component. It is responsible for maintaining a repository of Test objects.
-**
 ********************************************************************************
 ** VERSION HISTORY
-**
 **    Rev         Author              Date
 ** -----------------------------------------------------------------------------
-**
-**
+**   1.0          Sab/Maher			13/3/2022
 *******************************************************************************/
 
 #include <iomanip>
 #include <iostream>
 #include <fstream>
+#include <cstring>
 #include "TestLibrary.h"
 
-
+using namespace std;
 using std::cout;
 using std::string;
 using std::setw;
@@ -44,12 +39,12 @@ void TestLibrary::initializeTestLibrary()
 	//ITest* lcTestOb5 = new Test("Function 3 v1.0", true, false, true); // function 3 v1.0 throws exception
 
 
-	// load test objects into library
-	/*mcLibrary.push_back(lcTestOb1);
-	mcLibrary.push_back(lcTestOb2);
-	mcLibrary.push_back(lcTestOb3);
-	mcLibrary.push_back(lcTestOb4);
-	mcLibrary.push_back(lcTestOb5);*/
+	//load test objects into library
+	//mcLibrary.push_back(lcTestOb1);
+	//mcLibrary.push_back(lcTestOb2);
+	//mcLibrary.push_back(lcTestOb3);
+	//mcLibrary.push_back(lcTestOb4);
+	//mcLibrary.push_back(lcTestOb5);
 
 	readConfig();
 
@@ -172,5 +167,77 @@ void TestLibrary::saveConfig()
 	else
 	{
 		std::cout << "Could not save library data. Please check the LibraryData.txt file" << std::endl;
+	}
+}
+
+vector<ITest*> TestLibrary::getMcLibrary()
+{
+	return mcLibrary;
+}
+
+
+void TestLibrary::addTest()
+{
+	string tName;
+	bool tBool1, tBool2, tBool3;
+	string bs1, bs2, bs3;
+
+	cout << "Please enter your test name: ";
+	cin.ignore();
+	getline(std::cin, tName);
+	for (size_t i = 0; i < getMcLibrary().size(); i++)
+	{
+		if (tName == getMcLibrary()[i]->getTestName())
+		{
+			cout << "Test name already exists, please enter a different name: ";
+			cin.ignore();
+			getline(cin, tName, '\n');
+		}
+	}
+	cout << "Please enter result status: ";
+	cin.ignore();
+	getline(cin, bs1, '\n');
+	while (validateTestData(bs1))
+	{
+		cout << "Please enter true or false: ";
+		getline(cin, bs1, '\n');
+	}
+
+	cout << "Please enter Exception status: ";
+	cin.ignore();
+	getline(cin, bs2, '\n');
+	while (validateTestData(bs2))
+	{
+		cout << "Please enter true or false: ";
+		getline(cin, bs2, '\n');
+	}
+
+	cout << "Please enter delay status: ";
+	cin.ignore();
+	getline(cin, bs3, '\n');
+	while (validateTestData(bs3))
+	{
+		cout << "Please enter true or false: ";
+		getline(cin, bs3, '\n');
+	}
+
+	tBool1 = (bs1 == "true") ? true : false;
+	tBool2 = (bs2 == "true") ? true : false;
+	tBool3 = (bs3 == "true") ? true : false;
+
+	fileTestData.push_back(TestData(tName, tBool1, tBool2, tBool3));
+	ITest* lcTestOb = new Test(tName, tBool1, tBool2, tBool3);
+	mcLibrary.push_back(lcTestOb);
+}
+
+bool TestLibrary::validateTestData(string input)
+{
+	if (strcmp(input.c_str(), "true") != 0 && strcmp(input.c_str(), "false") != 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }

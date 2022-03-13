@@ -1,23 +1,15 @@
 /*******************************************************************************
 ** PROJECT:
 ** Test Harness, CSE 682 Software Engineering.
-**
-**
 ** NAME: TestLogger.cpp
-**
 ** DESCRIPTION:
-** This file provides functionality for the Test Logger software
-** component. It is responsible for formatting, storing, and outputting unit test
-** results.
-**
-**
+** This file provides functionality for the Test Sequence software
+** component. 
 ********************************************************************************
 ** VERSION HISTORY
-**
 **    Rev         Author              Date
 ** -----------------------------------------------------------------------------
-**
-**
+**   1.0        Maher Noureldine	13/2/2022
 *******************************************************************************/
 
 #include <iomanip>
@@ -25,6 +17,7 @@
 #include <sstream>
 #include "TestSequence.h"
 
+using namespace std;
 using std::cout;
 using std::cin;
 using std::ostringstream;
@@ -63,7 +56,7 @@ void TestSequence::viewTestSequence()
 void TestSequence::inputTestSequence(TestLibrary& arcTestLib)
 {
    // If no Test Objects within the Test Library print error message
-	if (0 == arcTestLib.mcLibrary.size())
+	if (0 == arcTestLib.getMcLibrary().size())
 	{
 		cout << "\n\tNo tests in library - aborting test sequence selection\n";
 	}
@@ -79,16 +72,16 @@ void TestSequence::inputTestSequence(TestLibrary& arcTestLib)
 
 		// Temp variable to hold user input
 		int lnInputTestID{ 1 };
+		// Prompt user to choose Tests to add to sequence
+		cout << "\n\tInput number of test (from the listing above) to be added to the new sequence";
+		cout << "\n\t(enter zero to end sequence input): ";
 
 		while (0 != lnInputTestID)
 		{
-			// Prompt user to choose Tests to add to sequence
-			cout << "\n\tInput number of test (from the listing above) to be added to the new sequence";
-			cout << "\n\t(enter zero to end sequence input): ";
 			cin >> lnInputTestID;
 
 			// Input guard
-			while (cin.fail() || 0 > lnInputTestID || signed(arcTestLib.mcLibrary.size()) < lnInputTestID)
+			while (cin.fail() || 0 > lnInputTestID || signed(arcTestLib.getMcLibrary().size()) < lnInputTestID)
 			{
 				cin.clear();
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -104,11 +97,22 @@ void TestSequence::inputTestSequence(TestLibrary& arcTestLib)
 			else
 			{
 				// Add test to sequence
-				mcSequence.push_back(arcTestLib.mcLibrary[lnInputTestID - 1]);
-
-				// Display current sequence
-				viewTestSequence();
+				mcSequence.push_back(arcTestLib.getMcLibrary()[lnInputTestID - 1]);
 			}
 		}
+		// Display current sequence
+		viewTestSequence();
 	}
 }
+
+vector<ITest*> TestSequence::getMcSequence()
+{
+	return mcSequence;
+}
+
+
+void TestSequence::clearTestSequence()
+{
+	mcSequence.clear();
+	cout << "Test sequence cleared." << endl;
+};

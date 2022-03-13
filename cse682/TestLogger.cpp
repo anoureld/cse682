@@ -1,8 +1,6 @@
 /*******************************************************************************
-/*******************************************************************************
 ** PROJECT:
 ** Test Harness, CSE 682 Software Engineering.
-**
 ** NAME: TestLogger.cpp
 ** DESCRIPTION:
 ** This file provides functionality for the Test Logger software component. 
@@ -12,9 +10,7 @@
 ** VERSION HISTORY
 **    Rev         Author              Date
 ** -----------------------------------------------------------------------------
-** 
-**    1.0         M. Noureldine       
-**                Initial delivery
+**    1.0         M. Noureldine       3/13/2022
 *******************************************************************************/
 #include <iomanip>
 #include <iostream>

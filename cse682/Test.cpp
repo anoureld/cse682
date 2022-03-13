@@ -1,21 +1,15 @@
 /*******************************************************************************
 ** PROJECT:
 ** Test Harness, CSE 682 Software Engineering.
-**
 ** NAME: Test.cpp
-**
 ** DESCRIPTION:
 ** This file provides functionality for the Test Harness software
-** component. It is responsible for defining a callable object.
-**
-**
+** component. It is responsible for defining a test unit object.
 ********************************************************************************
 ** VERSION HISTORY
-**
 **    Rev         Author              Date
 ** -----------------------------------------------------------------------------
-**
-**
+**	1.0			Maher Noureldine	13/3/2022
 *******************************************************************************/
 
 #include <exception>
