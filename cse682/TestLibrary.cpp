@@ -176,7 +176,7 @@ vector<ITest*> TestLibrary::getMcLibrary()
 }
 
 
-void TestLibrary::addTest()
+void TestLibrary::addTestToLibrary()
 {
 	string tName;
 	bool tBool1, tBool2, tBool3;

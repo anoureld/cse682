@@ -133,7 +133,7 @@ void TestHarness::run()
       // Exit Program
       case 10:
           //Add test
-          lcTestLibrary->addTest();
+          lcTestLibrary->addTestToLibrary();
           lcTestLibrary->saveConfig();
           break;
       case 11:

@@ -45,7 +45,7 @@ class TestLibrary
     // Return the test library.
     vector<ITest*> getMcLibrary();
     // Add test to the library.
-    void addTest();
+    void addTestToLibrary();
     //Validate new test data
     bool validateTestData(string);
 
