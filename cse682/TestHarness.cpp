@@ -36,11 +36,11 @@ void TestHarness::run()
 //int main()
 {
    // Print header describing purpose of program and giving guidance to user
+   cout << "\n\t\t\t\t\t Test Harness";
    cout << "\n-----------------------------------------------------------------------------------------------";
-   cout << "\n\t\t Test Harness";
    cout << "\n";
    cout << "\n\tEnables testing of program code.";
-  cout << "\n\tAvailable unit tests to be run are instantiated into a test library.";
+   cout << "\n\tAvailable unit tests to be run are instantiated into a test library.";
    cout << "\n\tUsers can select tests from the library to be tested, and insert them into a test sequence.";
    cout << "\n\tUsers can request execution of the test sequence with three different levels of output detail:";
    cout << "\n\t  1) print pass/fail only.";
