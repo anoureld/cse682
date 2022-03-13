@@ -17,7 +17,7 @@
 **
 **
 *******************************************************************************/
-
+#include "TestHarness.h"
 #include <iostream>
 #include "TestLibrary.h"
 #include "TestSequence.h"
@@ -27,16 +27,13 @@
 using std::cout;
 using std::cin;
 
-/**
- * This method prints the menu of available program options for user to select.
- */
-void printMenu();
-
+TestHarness* TestHarness::instance{ nullptr };
 
 /**
  * State machine for Single-User Test Harness.
  */
-int main()
+void TestHarness::run()
+//int main()
 {
    // Print header describing purpose of program and giving guidance to user
    cout << "\n-----------------------------------------------------------------------------------------------";
@@ -54,11 +51,7 @@ int main()
    cout << "\n-----------------------------------------------------------------------------------------------\n";
 
    // Declare test harness objects
-   TestLibrary lcTestLibrary;
-   TestSequence lcTestSequence;
-   TestLogger lcTestLogger;
-   TestExecutor lcTestExecutor;
-
+   
    // Declare variables to hold user input
    int lnDesiredActionInput{ 0 };
    int lnOutputLevel{ 0 };
@@ -87,41 +80,41 @@ int main()
       
       // View current Test Library
       case 1:
-         lcTestLibrary.viewTestLibrary();
+         lcTestLibrary->viewTestLibrary();
          break;
 
       // View current test Sequence
       case 2:
-         lcTestSequence.viewTestSequence();
+         lcTestSequence->viewTestSequence();
          break;
 
       // Enter new Test Sequence (NOTE: this action voids the current test sequence)
       case 3:
-         lcTestSequence.inputTestSequence(lcTestLibrary);
+         lcTestSequence->inputTestSequence(*lcTestLibrary);
          break;
 
       // Execute Test Sequence and print results with no debugging information
       case 4:
-         lcTestLogger.clearTestLog(false);
+         lcTestLogger->clearTestLog(false);
          lnOutputLevel = 1;
-         lcTestExecutor.executeTestSequence(lcTestSequence, lcTestLogger);
-         lcTestLogger.printTestResults(lnOutputLevel);
+         lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
+         lcTestLogger->printTestResults(lnOutputLevel);
          break;
 
       // Execute Test Sequence and print results with moderate debugging information
       case 5:
-         lcTestLogger.clearTestLog(false);
+         lcTestLogger->clearTestLog(false);
          lnOutputLevel = 2;
-         lcTestExecutor.executeTestSequence(lcTestSequence, lcTestLogger);
-         lcTestLogger.printTestResults(lnOutputLevel);
+         lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
+         lcTestLogger->printTestResults(lnOutputLevel);
          break;
 
       // Execute Test Sequence and print results with detailed debugging information
       case 6:
-         lcTestLogger.clearTestLog(false);
+         lcTestLogger->clearTestLog(false);
          lnOutputLevel = 3;
-         lcTestExecutor.executeTestSequence(lcTestSequence, lcTestLogger);
-         lcTestLogger.printTestResults(lnOutputLevel);
+         lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
+         lcTestLogger->printTestResults(lnOutputLevel);
          break;
 
       // Print the results of the test sequence that was previously executed
@@ -141,17 +134,18 @@ int main()
           }
           
           // print results
-          lcTestLogger.printTestResults(lnOutputLevel);
+          lcTestLogger->printTestResults(lnOutputLevel);
           break;
 
       // Clear the results from the Test logger (to get ready to run a new sequence)
       case 8:
-          lcTestLogger.clearTestLog(true);
+          lcTestLogger->clearTestLog(true);
           break;
 
       // Exit Program
       case 9:
-         cout << "\n\nProgram ended\n";
+         cout << "\n\nSaving data to data store(s).\n";
+         shutdown();
          break;
 
       // Handle invalid input
@@ -162,7 +156,10 @@ int main()
    } while (lnDesiredActionInput != 9);
 }
 
-void printMenu()
+/**
+ * This method prints the menu of available program options for user to select.
+ */
+void TestHarness::printMenu()
 {
    cout << "\n\tActions available (note that test sequence execution (options 4, 5, & 6) will clear previous log results):";
    cout << "\n\t   1 - Display the current test library";
@@ -174,4 +171,38 @@ void printMenu()
    cout << "\n\t   7 - Print the results of the test sequence previously executed";
    cout << "\n\t   8 - Clear previous test results from the test logger";
    cout << "\n\t   9 - Exit the program\n";
+}
+
+/*public get instance to return an instance of the test harness*/
+TestHarness* TestHarness::getInstance()
+{
+    if (instance == nullptr)
+    {
+        instance = new TestHarness();
+    }
+
+    return instance;
+}
+
+/* Private constructor*/
+TestHarness::TestHarness()
+{
+    //instance = new TestHarness();
+    lcTestLibrary = new TestLibrary();
+    lcTestSequence = new TestSequence();
+    lcTestLogger = new TestLogger();
+    lcTestExecutor = new TestExecutor();
+}
+
+void TestHarness::shutdown()
+{
+    // write to file. 
+    //TestLibrary Write to file
+    lcTestLibrary->saveConfig();
+    std::cout << "Cleaning up memory allocation" << std::endl;
+    delete lcTestLibrary;
+    delete lcTestSequence;
+    delete lcTestLogger;
+    delete lcTestExecutor;
+    std::cout << "Memory de-allocated" << std::endl;
 }

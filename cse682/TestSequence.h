@@ -54,7 +54,7 @@ public:
 
     // A list of Test Objects used as the "test sequence" that
     // will be executed by the test harness. 
-    list<Test*> mcSequence;
+    vector<ITest*> mcSequence;
 };
 
 #endif // TESTSEQUENCE_H

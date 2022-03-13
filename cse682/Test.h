@@ -14,18 +14,19 @@
 **
 **    Rev         Author              Date
 ** -----------------------------------------------------------------------------
-**
+**    1.0          Sab                  2/5
 **
 *******************************************************************************/
 
 #ifndef TEST_H
 #define TEST_H
 
+#include "ITest.h"
 #include <string>
 
 using std::string;
 
-class Test
+class Test : public ITest
 {
 public:
 

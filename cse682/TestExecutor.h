@@ -14,7 +14,7 @@
 **
 **    Rev         Author              Date
 ** -----------------------------------------------------------------------------
-**
+**   1.0        Sab Fernandes           3/01/2022
 **
 *******************************************************************************/
 
@@ -33,8 +33,8 @@ public:
     * This method invokes all callable objects contained within in the testSequence. 
     * Results of simulated test results are sent to the testLogger to be stored 
     * and formatted.
-    * @param arcTestSequence Reference to current Test Sequence
-    * @param arcTestLogger Reference to current Test Logger
+    * Takes 2 reference parameters arcTestSequence and arcTestLogger to the test sequence
+    * and the test logger. 
     */
 	void executeTestSequence(TestSequence& arcTestSequence, TestLogger& arcTestLogger);
 };

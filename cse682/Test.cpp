@@ -68,7 +68,7 @@ bool Test::getTestResult()
 
 bool Test::operator()(void)
 {
-   // Test not-designed to throw exception 
+	// Test not-designed to throw exception 
 	if (!mbThrowsException)
 	{
 		return mbTestResult;
@@ -77,7 +77,7 @@ bool Test::operator()(void)
    // Test designed to throw exception
 	else
 	{
-      throw std::exception();
-      return mbTestResult;
+		throw std::exception("divide by zero");
+		return mbTestResult;
 	}
 }

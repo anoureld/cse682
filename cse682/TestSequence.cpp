@@ -104,7 +104,7 @@ void TestSequence::inputTestSequence(TestLibrary& arcTestLib)
 			else
 			{
 				// Add test to sequence
-				mcSequence.push_back(&arcTestLib.mcLibrary[lnInputTestID - 1]);
+				mcSequence.push_back(arcTestLib.mcLibrary[lnInputTestID - 1]);
 
 				// Display current sequence
 				viewTestSequence();
