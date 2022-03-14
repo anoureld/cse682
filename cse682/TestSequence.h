@@ -46,6 +46,14 @@ class TestSequence
     * Returns current test sequence
     */
     vector<ITest*> getMcSequence();
+
+    /*
+    * Function to check if the test sequence is empty.
+    * Returns true if it's empty.
+    * Returns false if it's not empty.
+    */
+    bool is_empty();
+
    /**
     * Adds arcTestLib to current test sequence.
     * @param arcTestLib Reference to current test library

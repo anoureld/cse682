@@ -185,42 +185,21 @@ void TestLibrary::addTestToLibrary()
 
 	cout << "Please enter your test name: ";
 	cin.ignore();
-	getline(std::cin, tName);
-	for (size_t i = 0; i < getMcLibrary().size(); i++)
+	getline(std::cin, tName, '\n');
+	while (testNameExists(tName))
 	{
-		if (tName == getMcLibrary()[i]->getTestName())
-		{
-			cout << "Test name already exists, please enter a different name: ";
-			cin.ignore();
-			getline(cin, tName, '\n');
-		}
-	}
-	cout << "Please enter result status: ";
-	cin.ignore();
-	getline(cin, bs1, '\n');
-	while (validateTestData(bs1))
-	{
-		cout << "Please enter true or false: ";
-		getline(cin, bs1, '\n');
-	}
+		cout << "Please enter a different name: ";
+		getline(cin, tName, '\n');
+	} 
 
-	cout << "Please enter Exception status: ";
-	cin.ignore();
-	getline(cin, bs2, '\n');
-	while (validateTestData(bs2))
-	{
-		cout << "Please enter true or false: ";
-		getline(cin, bs2, '\n');
-	}
+	cout << "Please enter result status (true/false): ";
+	bs1 = inputTestData();
 
-	cout << "Please enter delay status: ";
-	cin.ignore();
-	getline(cin, bs3, '\n');
-	while (validateTestData(bs3))
-	{
-		cout << "Please enter true or false: ";
-		getline(cin, bs3, '\n');
-	}
+	cout << "Please enter Exception status (true/false): ";
+	bs2 = inputTestData();
+
+	cout << "Please enter delay status (true/false): ";
+	bs3 = inputTestData();
 
 	tBool1 = (bs1 == "true") ? true : false;
 	tBool2 = (bs2 == "true") ? true : false;
@@ -229,17 +208,37 @@ void TestLibrary::addTestToLibrary()
 	fileTestData.push_back(TestData(tName, tBool1, tBool2, tBool3));
 	ITest* lcTestOb = new Test(tName, tBool1, tBool2, tBool3);
 	mcLibrary.push_back(lcTestOb);
-	cout << "Test added to library" << endl;
+}
+
+bool TestLibrary::testNameExists(string tName)
+{
+	for (size_t i = 0; i < getMcLibrary().size(); i++)
+	{
+		if ((string)tName == (string)getMcLibrary()[i]->getTestName())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+string TestLibrary::inputTestData()
+{
+	string input;
+	getline(cin, input, '\n');
+	while (validateTestData(input))
+	{
+		cout << "Please enter true or false: ";
+		getline(cin, input, '\n');
+	}
+	return input;
 }
 
 bool TestLibrary::validateTestData(string input)
 {
-	if (strcmp(input.c_str(), "true") != 0 && strcmp(input.c_str(), "false") != 0)
-	{
-		return true;
-	}
-	else
+	if ((string) input == "true" || (string) input == "false")
 	{
 		return false;
 	}
+		return true;
 }

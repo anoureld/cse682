@@ -115,4 +115,18 @@ void TestSequence::clearTestSequence()
 {
 	mcSequence.clear();
 	cout << "Test sequence cleared." << endl;
-};
+}
+
+
+
+bool TestSequence::is_empty()
+{
+	if (mcSequence.size() == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}

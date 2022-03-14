@@ -46,8 +46,7 @@ class TestLibrary
     vector<ITest*> getMcLibrary();
     // Add test to the library.
     void addTestToLibrary();
-    //Validate new test data
-    bool validateTestData(string);
+
 
     private:
         class TestData {
@@ -58,10 +57,15 @@ class TestLibrary
                 bool tBoolVal3;
                 TestData(string, bool, bool, bool);
         };
-     // Vector of Test objects 
+     /*// Vector of Test objects */
      vector<ITest*> mcLibrary;
-
      vector<TestData> fileTestData;
+     /*//Check if current test exists in the library.*/
+     bool testNameExists(string);
+     /*//Validate new test data*/
+     bool validateTestData(string);
+     /*//Input new test data*/
+     string inputTestData();
 };
 
 #endif // TESTLIBRARY_H

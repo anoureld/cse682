@@ -78,7 +78,7 @@ void TestHarness::run()
          break;
       // View current test Sequence
       case 2:
-         lcTestSequence->viewTestSequence();
+          lcTestSequence->viewTestSequence();
          break;
       // Enter new Test Sequence (NOTE: this action voids the current test sequence)
       case 3:
@@ -130,11 +130,11 @@ void TestHarness::run()
       case 9:
           lcTestSequence->clearTestSequence();
           break;
-      // Exit Program
       case 10:
           //Add test
           lcTestLibrary->addTestToLibrary();
           lcTestLibrary->saveConfig();
+          cout << "Test added to library" << endl;
           break;
       case 11:
          cout << "\n\nSaving data to data store(s).\n";
