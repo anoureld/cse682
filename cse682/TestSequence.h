@@ -60,8 +60,8 @@ class TestSequence
     */
 	void inputTestSequence(TestLibrary& arcTestLib);
    
-    // A list of Test Objects used as the "test sequence" that
     private:
+    // A list of Test Objects used as the "test sequence" that
     vector<ITest*> mcSequence;
 };
 #endif // TESTSEQUENCE_H

@@ -9,3 +9,4 @@ Test8:test3,false,false,true
 Test9:sup,true,true,true
 Test10:sup2,false,true,false
 Test11:sup3,true,false,true
+Test12:sup4,false,false,true

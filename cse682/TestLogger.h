@@ -51,6 +51,7 @@ class TestLogger : public ILogger
 	* test sequence.
 	*/
 	void clearTestLog(bool abPrintMsg);
+
 	private:
 	// Grouped variables that define the results of a single test
 	struct msTestOutput

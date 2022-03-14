@@ -27,7 +27,7 @@ class TestHarness
 	public:
 		void printMenu();
 		void run();
-		// singleton class for client server implementation in phase 2
+		// singleton class for client-server implementation in phase 2.
 		static TestHarness* getInstance();
 		void shutdown();
 	private:

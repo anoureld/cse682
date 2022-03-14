@@ -9,7 +9,7 @@
 ** VERSION HISTORY
 **    Rev         Author              Date
 ** -----------------------------------------------------------------------------
-**   1.0          Sab/Maher			13/3/2022
+**   1.0          Sab/Maher			13/4/2022
 *******************************************************************************/
 
 #include <iomanip>
@@ -31,21 +31,6 @@ TestLibrary::TestLibrary()
 
 void TestLibrary::initializeTestLibrary()
 {
-	// Instantiate callable test objects
-	//ITest* lcTestOb1 = new Test("Function 1 v1.0", false, false, false); // function 1 v1.0 fails
-	//ITest* lcTestOb2 = new Test("Function 1 v1.1", true, false, false);  // function 2 v2.0 passes
-	//ITest* lcTestOb3 = new Test("Function 2 v1.0", false, false, false); // function 2 v1.0 fails
-	//ITest* lcTestOb4 = new Test("Function 2 v1.1", false, true, false); // function 2 v1.1 fails and pauses execution
-	//ITest* lcTestOb5 = new Test("Function 3 v1.0", true, false, true); // function 3 v1.0 throws exception
-
-
-	//load test objects into library
-	//mcLibrary.push_back(lcTestOb1);
-	//mcLibrary.push_back(lcTestOb2);
-	//mcLibrary.push_back(lcTestOb3);
-	//mcLibrary.push_back(lcTestOb4);
-	//mcLibrary.push_back(lcTestOb5);
-
 	readConfig();
 
 	for (size_t i = 0; i < fileTestData.size(); i++)
@@ -154,8 +139,6 @@ void TestLibrary::saveConfig()
 		{
 			myfile << "Test" << i + 1 << ":" << fileTestData[i].tName << "," << ((fileTestData[i].tBoolVal1 == true) ? "true" : "false") << ","
 				<< ((fileTestData[i].tBoolVal2 == true) ? "true" : "false") << "," << ((fileTestData[i].tBoolVal3 == true) ? "true" : "false");
-			//std::cout << "Test" << i+1 << ":" << fileTestData[i].tName << "," << ((fileTestData[i].tBoolVal1 == true)? "true":"false") << "," 
-				//<< ((fileTestData[i].tBoolVal2 == true)?"true":"false") << "," << ((fileTestData[i].tBoolVal3 == true)?"true":"false") << std::endl;
 			if (i < fileTestData.size() - 1)
 			{
 				myfile << std::endl;

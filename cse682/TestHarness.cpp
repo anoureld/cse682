@@ -130,12 +130,14 @@ void TestHarness::run()
       case 9:
           lcTestSequence->clearTestSequence();
           break;
+       //Add new test to the library.
       case 10:
           //Add test
           lcTestLibrary->addTestToLibrary();
           lcTestLibrary->saveConfig();
           cout << "Test added to library" << endl;
           break;
+       //Terminate the program.
       case 11:
          cout << "\n\nSaving data to data store(s).\n";
          shutdown();
@@ -190,8 +192,6 @@ TestHarness::TestHarness()
 
 void TestHarness::shutdown()
 {
-    // write to file. 
-    //TestLibrary Write to file
     lcTestLibrary->saveConfig();
     std::cout << "Cleaning up memory allocation" << std::endl;
     delete lcTestLibrary;
