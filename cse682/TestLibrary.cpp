@@ -215,7 +215,7 @@ void TestLibrary::inputTestException(bool testException)
 	 setTestException(testException);
 }
 
-void TestLibrary::setTestException(bool exception)
+void TestLibrary::setTestException(bool testException)
 {
-	tBool3 = exception;
+	tBool3 = testException;
 }
