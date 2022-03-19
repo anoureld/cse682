@@ -10,3 +10,5 @@ Test9:sup,true,true,true
 Test10:sup2,false,true,false
 Test11:sup3,true,false,true
 Test12:sup4,false,false,true
+Test13:spider man,true,false,false
+Test14:hello there,false,true,true

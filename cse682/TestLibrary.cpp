@@ -161,36 +161,10 @@ vector<ITest*> TestLibrary::getMcLibrary()
 
 void TestLibrary::addTestToLibrary()
 {
-	cout << "Start adding test to library...." << endl;
-	string tName;
-	bool tBool1, tBool2, tBool3;
-	string bs1, bs2, bs3;
-
-	cout << "Please enter your test name: ";
-	cin.ignore();
-	getline(std::cin, tName, '\n');
-	while (testNameExists(tName))
-	{
-		cout << "Please enter a different name: ";
-		getline(cin, tName, '\n');
-	} 
-
-	cout << "Please enter result status (true/false): ";
-	bs1 = inputTestData();
-
-	cout << "Please enter Exception status (true/false): ";
-	bs2 = inputTestData();
-
-	cout << "Please enter delay status (true/false): ";
-	bs3 = inputTestData();
-
-	tBool1 = (bs1 == "true") ? true : false;
-	tBool2 = (bs2 == "true") ? true : false;
-	tBool3 = (bs3 == "true") ? true : false;
-
 	fileTestData.push_back(TestData(tName, tBool1, tBool2, tBool3));
 	ITest* lcTestOb = new Test(tName, tBool1, tBool2, tBool3);
 	mcLibrary.push_back(lcTestOb);
+	saveConfig();
 }
 
 bool TestLibrary::testNameExists(string tName)
@@ -205,23 +179,43 @@ bool TestLibrary::testNameExists(string tName)
 	return false;
 }
 
-string TestLibrary::inputTestData()
+void TestLibrary::inputTestName(string testName)
 {
-	string input;
-	getline(cin, input, '\n');
-	while (validateTestData(input))
-	{
-		cout << "Please enter true or false: ";
-		getline(cin, input, '\n');
-	}
-	return input;
+	setTestName(testName);
 }
 
-bool TestLibrary::validateTestData(string input)
+
+void TestLibrary::setTestName(string name)
 {
-	if ((string) input == "true" || (string) input == "false")
-	{
-		return false;
-	}
-		return true;
+	tName = name;
+}
+
+void TestLibrary::inputTestResult(bool testResult)
+{
+	setTestResult(testResult);
+}
+
+void TestLibrary::setTestResult(bool result)
+{
+	tBool1 = result;
+}
+
+void TestLibrary::inputTestDelay(bool testDelay)
+{
+	setTestDelay(testDelay);
+}
+
+void TestLibrary::setTestDelay(bool delay)
+{
+	tBool2 = delay;
+}
+
+void TestLibrary::inputTestException(bool testException)
+{
+	 setTestException(testException);
+}
+
+void TestLibrary::setTestException(bool exception)
+{
+	tBool3 = exception;
 }

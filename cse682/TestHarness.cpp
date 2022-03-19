@@ -48,14 +48,11 @@ void TestHarness::run()
    cout << "\n\t  3) print pass/fail, exception contents if caught, start and end timepoints.";
    cout << "\n-----------------------------------------------------------------------------------------------\n";
 
-   // Declare variables to hold user input
-   //int lnDesiredActionInput{ 0 };
-   //int lnOutputLevel{ 0 };
 
    do
    {
       // Prompt user for desired action
-      cout << "\nPlease choose desired action (enter action number (or 0 for menu) then hit <return>): ";
+      cout << "\nPlease choose desired action (enter action number (or 0 for menu, 9 to exit) then hit <return>): ";
       cin >> lnDesiredActionInput;
       
       // Input guard
@@ -100,44 +97,6 @@ void TestHarness::run()
              executeProc();
              break;
          }
-      // Execute Test Sequence and print results with moderate debugging information
-      //case 5:
-      //   if (lcTestSequence->is_empty() == true)
-      //   {
-      //       cout << "\n\tNo tests in current sequence - aborting test sequence execution\n";
-      //       break;
-      //   }
-      //   else
-      //   {
-      //       /*lcTestLogger->clearTestLog(false);
-      //       lnOutputLevel = 2;
-      //       lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
-      //       lcTestLogger->printTestResults(lnOutputLevel);*/
-      //       /*lnOutputLevel = 2;
-      //       executeSequence();
-      //       printResults(lnOutputLevel);*/
-      //       executeProc();
-      //       break;
-      //   }
-      // Execute Test Sequence and print results with detailed debugging information
-      //case 6:
-      //   if (lcTestSequence->is_empty() == true)
-      //   {
-      //       cout << "\n\tNo tests in current sequence - aborting test sequence execution\n";
-      //       break;
-      //   }
-      //   else
-      //   {
-      //       /*lcTestLogger->clearTestLog(false);
-      //       lnOutputLevel = 3;
-      //       lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
-      //       lcTestLogger->printTestResults(lnOutputLevel);*/
-      //       /*lnOutputLevel = 3;
-      //       executeSequence();
-      //       printResults(lnOutputLevel);*/
-      //       executeProc();
-      //       break;
-      //   }
       // Print the results of the test sequence that was previously executed
       case 5:
           // Prompt user for desired output level
@@ -166,9 +125,9 @@ void TestHarness::run()
        //Add new test to the library.
       case 8:
           //Add test
-          lcTestLibrary->addTestToLibrary();
-          lcTestLibrary->saveConfig();
-          cout << "Test added to library" << endl;
+          cout << "Start adding test to library...." << endl;
+          getNewTestData();
+          cout << "Test added to library." << endl;
           break;
        //Terminate the program.
       case 9:
@@ -188,18 +147,52 @@ void TestHarness::run()
  */
 void TestHarness::printMenu()
 {
-   cout << "\n\tActions available (note that test sequence execution (options 4, 5, & 6) will clear previous log results):";
-   cout << "\n\t   1 - Display the current test library";
-   cout << "\n\t   2 - Display the current test sequence";
-   cout << "\n\t   3 - Create a new test sequence (NOTE: this voids the current test sequence)";
-   cout << "\n\t   4 - Execute test sequence";//, print pass/fail status only";
-   //cout << "\n\t   5 - Execute test sequence, print pass/fail status and exception contents";
-   //cout << "\n\t   6 - Execute test sequence, print pass/fail status, exception contents, & start and end timepoints";
-   cout << "\n\t   5 - Print the results of the test sequence previously executed";
-   cout << "\n\t   6 - Clear previous test results from the test logger";
-   cout << "\n\t   7 - Clear the test sequence.";
-   cout << "\n\t   8 - Add new test to the library.";
-   cout << "\n\t   9 - Exit the program." << endl;
+    cout << "\n\tActions available (note that test sequence execution (options 4, 5, & 6) will clear previous log results):";
+    cout << "\n\t   1 - Display the current test library";
+    cout << "\n\t   2 - Display the current test sequence";
+    cout << "\n\t   3 - Create a new test sequence (NOTE: this voids the current test sequence)";
+    cout << "\n\t   4 - Execute test sequence";
+    cout << "\n\t   5 - Print the results of the test sequence previously executed";
+    cout << "\n\t   6 - Clear previous test results from the test logger";
+    cout << "\n\t   7 - Clear the test sequence.";
+    cout << "\n\t   8 - Add new test to the library.";
+    cout << "\n\t   9 - Exit the program." << endl;
+}
+
+
+void TestHarness::getNewTestData()
+{
+    string tName;
+    cout << "Please enter Test Name: ";
+    cin.ignore();
+    getline(std::cin, tName, '\n');
+    while (lcTestLibrary->testNameExists(tName))
+    {
+        cout << "Please enter a different name: ";
+        getline(cin, tName, '\n');
+    }
+    //Setting the test name.
+    lcTestLibrary->inputTestName(tName);
+
+    //Gathering test data.
+    bool tBool1, tBool2, tBool3;
+    string bs1, bs2, bs3;
+    cout << "Please enter result status (true/false): ";
+    bs1 = inputTestData();
+    cout << "Please enter Exception status (true/false): ";
+    bs2 = inputTestData();
+    cout << "Please enter delay status (true/false): ";
+    bs3 = inputTestData();
+    //Validating data.
+    tBool1 = (bs1 == "true") ? true : false;
+    tBool2 = (bs2 == "true") ? true : false;
+    tBool3 = (bs3 == "true") ? true : false;
+    //Setting the values for the test.
+    lcTestLibrary->inputTestResult(tBool1);
+    lcTestLibrary->inputTestException(tBool2);
+    lcTestLibrary->inputTestDelay(tBool3);
+    //Adding the test to the library.
+    lcTestLibrary->addTestToLibrary();
 }
 
 /*public get instance to return an instance of the test harness*/
@@ -269,4 +262,25 @@ void TestHarness::executeProc()
     setLogLevel();
     executeSequence();
     printResults(getLogLevel());
+}
+
+string TestHarness::inputTestData()
+{
+    string input;
+    getline(cin, input, '\n');
+    while (validateTestData(input))
+    {
+        cout << "Please enter true or false: ";
+        getline(cin, input, '\n');
+    }
+    return input;
+}
+
+bool TestHarness::validateTestData(string input)
+{
+    if ((string)input == "true" || (string)input == "false")
+    {
+        return false;
+    }
+    return true;
 }

@@ -32,10 +32,11 @@ class TestHarness
 		void shutdown();
 		void setLogLevel();
 		int getLogLevel();
+		bool validateTestData(string);
+		string inputTestData();
 	private:
 		TestHarness();
-		static TestHarness* instance;
-		string libraryConfigFile = "LibraryData.cfg";
+		void getNewTestData();
 		void executeProc();
 		void executeSequence();
 		void printResults(int);
@@ -45,6 +46,8 @@ class TestHarness
 		TestExecutor* lcTestExecutor;
 		int lnDesiredActionInput;
 		int lnOutputLevel;
+		static TestHarness* instance;
+		string libraryConfigFile = "LibraryData.cfg";
 };
 
 #endif // !TESTHARNESS_H

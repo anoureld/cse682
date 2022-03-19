@@ -16,7 +16,9 @@
 
 #include <vector>
 #include "Test.h"
+#include <string.h>
 
+using namespace std;
 using std::vector;
 
 class TestLibrary
@@ -40,15 +42,34 @@ class TestLibrary
     void readConfig();
     // parse the string 
     void acquireTestInfo(const string&);
-    // Write the library data to file
-    void saveConfig();
     // Return the test library.
     vector<ITest*> getMcLibrary();
+
+    /*//Check if current test exists in the library.*/
+    bool testNameExists(string);
+
+    /*Input the test name*/
+    void inputTestName(string);
+    void inputTestResult(bool);
+    void inputTestDelay(bool);
+    void inputTestException(bool);
+
     // Add test to the library.
     void addTestToLibrary();
 
+    // Write the library data to file
+    void saveConfig();
 
     private:
+        //Test attributes.
+        string tName;
+        bool tBool1, tBool2, tBool3;
+        //Data member setters.
+        void setTestName(string);
+        void setTestResult(bool);
+        void setTestDelay(bool);
+        void setTestException(bool);
+
         class TestData {
             public:
                 string tName;
@@ -60,10 +81,6 @@ class TestLibrary
      /*// Vector of Test objects */
      vector<ITest*> mcLibrary;
      vector<TestData> fileTestData;
-     /*//Check if current test exists in the library.*/
-     bool testNameExists(string);
-     /*//Validate new test data*/
-     bool validateTestData(string);
      /*//Input new test data*/
      string inputTestData();
 };
