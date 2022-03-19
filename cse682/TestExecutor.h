@@ -23,7 +23,7 @@ class TestExecutor
 public:
 
     /**
-    * This method invokes all callable objects contained within in the testSequence. 
+    * This method invokes all callable objects contained within the testSequence. 
     * Results of simulated test results are sent to the testLogger to be stored 
     * and formatted.
     * Takes 2 reference parameters arcTestSequence and arcTestLogger to the test sequence

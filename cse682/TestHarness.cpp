@@ -49,8 +49,8 @@ void TestHarness::run()
    cout << "\n-----------------------------------------------------------------------------------------------\n";
 
    // Declare variables to hold user input
-   int lnDesiredActionInput{ 0 };
-   int lnOutputLevel{ 0 };
+   //int lnDesiredActionInput{ 0 };
+   //int lnOutputLevel{ 0 };
 
    do
    {
@@ -86,27 +86,60 @@ void TestHarness::run()
          break;
       // Execute Test Sequence and print results with no debugging information
       case 4:
-         lcTestLogger->clearTestLog(false);
-         lnOutputLevel = 1;
-         lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
-         lcTestLogger->printTestResults(lnOutputLevel);
-         break;
+         if (lcTestSequence->is_empty() == true)
+         {
+             cout << "\n\tNo tests in current sequence - aborting test sequence execution\n";
+             break;
+         }
+         else
+         {
+             //lcTestLogger->clearTestLog(false);
+             //lnOutputLevel = 1;
+             //lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
+             //lcTestLogger->printTestResults(lnOutputLevel);
+             executeProc();
+             break;
+         }
       // Execute Test Sequence and print results with moderate debugging information
-      case 5:
-         lcTestLogger->clearTestLog(false);
-         lnOutputLevel = 2;
-         lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
-         lcTestLogger->printTestResults(lnOutputLevel);
-         break;
+      //case 5:
+      //   if (lcTestSequence->is_empty() == true)
+      //   {
+      //       cout << "\n\tNo tests in current sequence - aborting test sequence execution\n";
+      //       break;
+      //   }
+      //   else
+      //   {
+      //       /*lcTestLogger->clearTestLog(false);
+      //       lnOutputLevel = 2;
+      //       lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
+      //       lcTestLogger->printTestResults(lnOutputLevel);*/
+      //       /*lnOutputLevel = 2;
+      //       executeSequence();
+      //       printResults(lnOutputLevel);*/
+      //       executeProc();
+      //       break;
+      //   }
       // Execute Test Sequence and print results with detailed debugging information
-      case 6:
-         lcTestLogger->clearTestLog(false);
-         lnOutputLevel = 3;
-         lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
-         lcTestLogger->printTestResults(lnOutputLevel);
-         break;
+      //case 6:
+      //   if (lcTestSequence->is_empty() == true)
+      //   {
+      //       cout << "\n\tNo tests in current sequence - aborting test sequence execution\n";
+      //       break;
+      //   }
+      //   else
+      //   {
+      //       /*lcTestLogger->clearTestLog(false);
+      //       lnOutputLevel = 3;
+      //       lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
+      //       lcTestLogger->printTestResults(lnOutputLevel);*/
+      //       /*lnOutputLevel = 3;
+      //       executeSequence();
+      //       printResults(lnOutputLevel);*/
+      //       executeProc();
+      //       break;
+      //   }
       // Print the results of the test sequence that was previously executed
-      case 7:
+      case 5:
           // Prompt user for desired output level
           cout << "\n\tPlease choose desired output level then hit <return>";
           cout << "\n\t(1 = summary only, 2 = w/ exceptions, 3 = w/ timestamps and exceptions): ";
@@ -123,22 +156,22 @@ void TestHarness::run()
           lcTestLogger->printTestResults(lnOutputLevel);
           break;
       // Clear the results from the Test logger (to get ready to run a new sequence)
-      case 8:
+      case 6:
           lcTestLogger->clearTestLog(true);
           break;
       // Clear Test Sequence.
-      case 9:
+      case 7:
           lcTestSequence->clearTestSequence();
           break;
        //Add new test to the library.
-      case 10:
+      case 8:
           //Add test
           lcTestLibrary->addTestToLibrary();
           lcTestLibrary->saveConfig();
           cout << "Test added to library" << endl;
           break;
        //Terminate the program.
-      case 11:
+      case 9:
          cout << "\n\nSaving data to data store(s).\n";
          shutdown();
          break;
@@ -147,7 +180,7 @@ void TestHarness::run()
          cout << "\n\tInvalid input - please try again\n";
          break;
       }
-   } while (lnDesiredActionInput != 11);
+   } while (lnDesiredActionInput != 9);
 }
 
 /**
@@ -159,14 +192,14 @@ void TestHarness::printMenu()
    cout << "\n\t   1 - Display the current test library";
    cout << "\n\t   2 - Display the current test sequence";
    cout << "\n\t   3 - Create a new test sequence (NOTE: this voids the current test sequence)";
-   cout << "\n\t   4 - Execute test sequence, print pass/fail status only";
-   cout << "\n\t   5 - Execute test sequence, print pass/fail status and exception contents";
-   cout << "\n\t   6 - Execute test sequence, print pass/fail status, exception contents, & start and end timepoints";
-   cout << "\n\t   7 - Print the results of the test sequence previously executed";
-   cout << "\n\t   8 - Clear previous test results from the test logger";
-   cout << "\n\t   9 - Clear the test sequence.";
-   cout << "\n\t   10 - Add new test to the library.";
-   cout << "\n\t   11 - Exit the program." << endl;
+   cout << "\n\t   4 - Execute test sequence";//, print pass/fail status only";
+   //cout << "\n\t   5 - Execute test sequence, print pass/fail status and exception contents";
+   //cout << "\n\t   6 - Execute test sequence, print pass/fail status, exception contents, & start and end timepoints";
+   cout << "\n\t   5 - Print the results of the test sequence previously executed";
+   cout << "\n\t   6 - Clear previous test results from the test logger";
+   cout << "\n\t   7 - Clear the test sequence.";
+   cout << "\n\t   8 - Add new test to the library.";
+   cout << "\n\t   9 - Exit the program." << endl;
 }
 
 /*public get instance to return an instance of the test harness*/
@@ -182,12 +215,25 @@ TestHarness* TestHarness::getInstance()
 
 /* Private constructor*/
 TestHarness::TestHarness()
+    :lnDesiredActionInput{0}, lnOutputLevel{0}
 {
     //instance = new TestHarness();
     lcTestLibrary = new TestLibrary();
     lcTestSequence = new TestSequence();
     lcTestLogger = new TestLogger();
     lcTestExecutor = new TestExecutor();
+}
+
+void TestHarness::executeSequence()
+{
+    //setLogLevel();
+    lcTestLogger->clearTestLog(false);
+    lcTestExecutor->executeTestSequence(*lcTestSequence, *lcTestLogger);
+}
+
+void TestHarness::printResults(int logLvl)
+{
+    lcTestLogger->printTestResults(logLvl);
 }
 
 void TestHarness::shutdown()
@@ -199,4 +245,28 @@ void TestHarness::shutdown()
     delete lcTestLogger;
     delete lcTestExecutor;
     std::cout << "Memory de-allocated" << std::endl;
+}
+
+void TestHarness::setLogLevel()
+{
+    int logLvl = 0;
+    while (logLvl < 1 || logLvl > 3)
+    {
+        cout << "\n\tPlease choose desired output level then hit <return>";
+        cout << "\n\t(1 = summary only, 2 = w/ exceptions, 3 = w/ timestamps and exceptions): ";
+        cin >> logLvl;
+    }
+    lnOutputLevel = logLvl;
+}
+
+int TestHarness::getLogLevel()
+{
+    return lnOutputLevel;
+}
+
+void TestHarness::executeProc()
+{
+    setLogLevel();
+    executeSequence();
+    printResults(getLogLevel());
 }

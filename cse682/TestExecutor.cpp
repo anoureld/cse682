@@ -32,12 +32,12 @@ using namespace std::chrono;
 void TestExecutor::executeTestSequence(TestSequence& arcTestSequence, TestLogger& arcTestLogger)
 {
    // If test sequence is empty print error message
-   if (arcTestSequence.getMcSequence().empty()) 
-   {
-      cout << "\n\tNo tests in current sequence - aborting test sequence execution\n";
-   }
-   else // Test sequence not empty then invoke callable object and store output
-   {
+   //if (arcTestSequence.getMcSequence().empty()) 
+   //{
+     // cout << "\n\tNo tests in current sequence - aborting test sequence execution\n";
+   //}
+   //else // Test sequence not empty then invoke callable object and store output
+   //{
       // Invoke callable Test Objects
       for (auto lcCurrentTest : arcTestSequence.getMcSequence())
       {
@@ -99,5 +99,5 @@ void TestExecutor::executeTestSequence(TestSequence& arcTestSequence, TestLogger
          // Provide test output to logger
          arcTestLogger.logTestResult(lnTestID, lcTestName, lbTestResult, lcExceptionsThrown, lcStartTimepoint, lcEndTimepoint);
       }
-   }
+   //}
 }

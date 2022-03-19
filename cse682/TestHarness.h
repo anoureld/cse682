@@ -30,14 +30,21 @@ class TestHarness
 		// singleton class for client-server implementation in phase 2.
 		static TestHarness* getInstance();
 		void shutdown();
+		void setLogLevel();
+		int getLogLevel();
 	private:
 		TestHarness();
 		static TestHarness* instance;
 		string libraryConfigFile = "LibraryData.cfg";
+		void executeProc();
+		void executeSequence();
+		void printResults(int);
 		TestLibrary* lcTestLibrary;
 		TestSequence* lcTestSequence;
 		TestLogger* lcTestLogger;
 		TestExecutor* lcTestExecutor;
+		int lnDesiredActionInput;
+		int lnOutputLevel;
 };
 
 #endif // !TESTHARNESS_H
