@@ -16,6 +16,7 @@
 
 #include "TestHarness.h"
 #include <iostream>
+#include <iomanip>
 #include "TestLibrary.h"
 #include "TestSequence.h"
 #include "TestExecutor.h"
@@ -25,6 +26,7 @@ using namespace std;
 
 using std::cout;
 using std::cin;
+using std::setw;
 
 
 TestHarness* TestHarness::instance{ nullptr };
@@ -233,7 +235,86 @@ void TestHarness::executeSequence()
 
 void TestHarness::printResults(int logLvl)
 {
-    lcTestLogger->printTestResults(logLvl);
+    // Display results to user on console.
+    string lcNone = "NONE";
+    string lcPassed = "Passed";
+    string lcFailed = "Failed";
+    vector<TestLogger::msTestOutput> result = lcTestLogger->getResultOutput();
+
+    // If logger is empty, print statement saying that
+    if (result.empty())
+    {
+        cout << "\n\t(Logger is empty)\n";
+    }
+    // If logger is not empty, print test results at requested detail level
+    else
+    {
+        //print pass/fail only
+        if (logLvl == 1)
+        {
+            cout << "\n\tTest Summary:\n";
+            cout << "\n\t" << setw(4) << "Test ID" << setw(20) << "Test Name" << setw(15) << "Test Result\n";
+            for (unsigned int i = 0; i < result.size(); i++)
+            {
+                // Test passes and is exception free
+                if (result[i].mbTestResult == true && result[i].mcExceptionsThrown == lcNone)
+                {
+                    cout << "\n\t" << setw(7) << result[i].mnTestID << setw(20) << result[i].mcTestName << setw(15) << lcPassed;
+                }
+                // Test fails if exception is thrown or boolean predicate indicates fail
+                else if (result[i].mcExceptionsThrown != lcNone || result[i].mbTestResult == false)
+                {
+                    cout << "\n\t" << setw(7) << result[i].mnTestID << setw(20) << result[i].mcTestName << setw(15) << lcFailed;
+                }
+            }
+            cout << "\n";
+        }
+        // print pass/fail status, and exception contents if caught
+        else if (logLvl == 2)
+        {
+            cout << "\n\tTest Summary:\n";
+            cout << "\n\t" << setw(4) << "Test ID" << setw(20) << "Test Name" << setw(15) << "Test Result\n";
+            for (unsigned int i = 0; i < result.size(); i++)
+            {
+                // Test passes and is exception free
+                if (result[i].mbTestResult == true && result[i].mcExceptionsThrown == lcNone)
+                {
+                    cout << "\n\t" << setw(7) << result[i].mnTestID << setw(20) << result[i].mcTestName << setw(14) << lcPassed << "\n";
+                }
+                // Test fails if exception is thrown or boolean predicate indicates fail
+                else if (result[i].mcExceptionsThrown != lcNone || result[i].mbTestResult == false)
+                {
+                    cout << "\n\t" << setw(7) << result[i].mnTestID << setw(20) << result[i].mcTestName << setw(14) << lcFailed << "\n";
+                }
+                cout << "\t\t\tException: " << result[i].mcExceptionsThrown;
+            }
+            cout << "\n";
+        }
+        //print pass/fail, exception contents if caught, start and end timepoints
+        else if (logLvl == 3)
+        {
+            cout << "\n\tTest Summary:\n";
+            cout << "\n\t" << setw(4) << "Test ID" << setw(20) << "Test Name" << setw(15) << "Test Result" << setw(24)
+                << "Start Timepoint" << setw(24) << "End Timepoint" << "\n";
+            for (unsigned int i = 0; i < result.size(); i++)
+            {
+                // Test passes and is exception free
+                if (result[i].mbTestResult == true && result[i].mcExceptionsThrown == lcNone)
+                {
+                    cout << "\n\t" << setw(7) << result[i].mnTestID << setw(20) << result[i].mcTestName << setw(15) << lcPassed
+                        << setw(24) << result[i].mcStartTimepoint << setw(24) << result[i].mcEndTimepoint << "\n";
+                }
+                // Test fails if exception is thrown or boolean predicate indicates fail
+                else if (result[i].mcExceptionsThrown != lcNone || result[i].mbTestResult == false)
+                {
+                    cout << "\n\t" << setw(7) << result[i].mnTestID << setw(20) << result[i].mcTestName << setw(15) << lcFailed
+                        << setw(24) << result[i].mcStartTimepoint << setw(24) << result[i].mcEndTimepoint << "\n";
+                }
+                cout << "\t\t\tException: " << result[i].mcExceptionsThrown;
+            }
+            cout << "\n";
+        }
+    }
 }
 
 void TestHarness::shutdown()
@@ -249,10 +330,19 @@ void TestHarness::shutdown()
 
 void TestHarness::setLogLevel()
 {
-    int logLvl = 0;
-    while (logLvl < 1 || logLvl > 3)
+    int logLvl;
+    cout << "\n\tPlease choose desired output level then hit <return>";
+    cout << "\n\t(1 = summary only, 2 = w/ exceptions, 3 = w/ timestamps and exceptions): ";
+    cin >> logLvl;
+
+    while (logLvl < 1 || logLvl > 3 || cin.fail())
     {
-        cout << "\n\tPlease choose desired output level then hit <return>";
+        if (cin.fail())
+        {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        cout << "\n\tInvalid selection. Please re-enter desired output level then hit <return>";
         cout << "\n\t(1 = summary only, 2 = w/ exceptions, 3 = w/ timestamps and exceptions): ";
         cin >> logLvl;
     }
