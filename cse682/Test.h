@@ -96,6 +96,7 @@ class Test : public ITest
    // A boolean that allows Test Object creator to set simulated test
    // output. True = Pass, False = Failed.
 	bool mbTestResult;
+    //Data members setters should be defined here, but currently we don't have them.
 };
 
 #endif // TEST_H

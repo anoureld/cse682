@@ -33,10 +33,10 @@ class TestHarness
 		void setLogLevel();
 		int getLogLevel();
 		bool validateTestData(string);
-		string inputTestData();
+		void getNewTestData();
 	private:
 		TestHarness();
-		void getNewTestData();
+		string inputTestData();
 		void executeProc();
 		void executeSequence();
 		void printResults(int);

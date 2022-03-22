@@ -114,7 +114,8 @@ void TestHarness::run()
               cin >> lnOutputLevel;
           }
           // print results
-          lcTestLogger->printTestResults(lnOutputLevel);
+          /*lcTestLogger->printTestResults(lnOutputLevel);*/
+          printResults(lnOutputLevel);
           break;
       // Clear the results from the Test logger (to get ready to run a new sequence)
       case 6:
@@ -170,7 +171,7 @@ void TestHarness::getNewTestData()
     getline(std::cin, tName, '\n');
     while (lcTestLibrary->testNameExists(tName))
     {
-        cout << "Please enter a different name: ";
+        cout << "Name already exists, please enter a different name: ";
         getline(cin, tName, '\n');
     }
     //Setting the test name.

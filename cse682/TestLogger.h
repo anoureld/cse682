@@ -25,16 +25,16 @@ using std::vector;
 class TestLogger : public ILogger
 {
 	public:
-		// Grouped variables that define the results of a single test
-		struct msTestOutput
-		{
-			int mnTestID = 0;
-			string mcTestName;
-			bool mbTestResult = 0;
-			string mcExceptionsThrown;
-			string mcStartTimepoint;
-			string mcEndTimepoint;
-		};
+		//// Grouped variables that define the results of a single test
+		//struct msTestOutput
+		//{
+		//	int mnTestID = 0;
+		//	string mcTestName;
+		//	bool mbTestResult = 0;
+		//	string mcExceptionsThrown;
+		//	string mcStartTimepoint;
+		//	string mcEndTimepoint;
+		//};
 
 		/**
 		 * Constructor
@@ -51,13 +51,6 @@ class TestLogger : public ILogger
 		* @param arEndTime Time test execution ends
 		*/
 		void logTestResult(int anTestID, string acTestName, bool abTestResult, string acExceptionsThrown, string acStartTimepoint, string acEndTimepoint);
-		/**
-		* Print test results.
-		* @param detailLevel 1 = Pass/Fail;
-		*                    2 = Pass/Fail and application specific messages;
-		*                    3 = Pass/Fail, application specific messages, date and time
-		*/
-		void printTestResults(int aDetailLevel);
 		/**
 		* This method clears data member values in preparation for the execution of another
 		* test sequence.

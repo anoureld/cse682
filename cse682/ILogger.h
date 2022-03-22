@@ -14,14 +14,26 @@
 *******************************************************************************/
 
 #include <string>
+
 using namespace std;
 
 class ILogger
 {
 	public:
+		// Grouped variables that define the results of a single test
+		struct msTestOutput
+		{
+			int mnTestID = 0;
+			string mcTestName;
+			bool mbTestResult = 0;
+			string mcExceptionsThrown;
+			string mcStartTimepoint;
+			string mcEndTimepoint;
+		};
+
 		virtual void logTestResult(int, string, bool, string, string, string) = 0;
-		virtual void printTestResults(int) = 0;
 		virtual void clearTestLog(bool) = 0;
+		virtual vector<msTestOutput> getResultOutput() = 0;
 };
 
 #endif // ILOGGER_H
