@@ -20,6 +20,7 @@ using std::cout;
 using std::setw;
 
 TestLogger::TestLogger() {}
+
 void TestLogger::logTestResult(int anTestID, string acTestShortName, bool abTestResult, string acExceptionsThrown, string acStartTimepoint, string acEndTimepoint)
 {
 	// Gather test results inside a single struct instance
@@ -123,4 +124,9 @@ void TestLogger::clearTestLog(bool abPrintMsg)
 	{
 		cout << "\n\tTest logger cleared\n";
 	}
+}
+
+vector<TestLogger::msTestOutput> TestLogger::getResultOutput()
+{
+	return mcAllTestOutputs;
 }
