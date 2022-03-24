@@ -25,17 +25,6 @@ using std::vector;
 class TestLogger : public ILogger
 {
 	public:
-		//// Grouped variables that define the results of a single test
-		//struct msTestOutput
-		//{
-		//	int mnTestID = 0;
-		//	string mcTestName;
-		//	bool mbTestResult = 0;
-		//	string mcExceptionsThrown;
-		//	string mcStartTimepoint;
-		//	string mcEndTimepoint;
-		//};
-
 		/**
 		 * Constructor
 		 * Create TestLogger Object
@@ -50,7 +39,8 @@ class TestLogger : public ILogger
 		* @param arStartTime Time test execution starts
 		* @param arEndTime Time test execution ends
 		*/
-		void logTestResult(int anTestID, string acTestName, bool abTestResult, string acExceptionsThrown, string acStartTimepoint, string acEndTimepoint);
+		void logTestResult(int anTestID, string acTestName, bool abTestResult, 
+			string acExceptionsThrown, string acStartTimepoint, string acEndTimepoint);
 		/**
 		* This method clears data member values in preparation for the execution of another
 		* test sequence.
