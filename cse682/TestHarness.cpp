@@ -150,7 +150,7 @@ void TestHarness::run()
  */
 void TestHarness::printMenu()
 {
-    cout << "\n\tActions available (note that test sequence execution (options 4, 5, & 6) will clear previous log results):";
+    cout << "\n\tActions available:";
     cout << "\n\t   1 - Display the current test library";
     cout << "\n\t   2 - Display the current test sequence";
     cout << "\n\t   3 - Create a new test sequence (NOTE: this voids the current test sequence)";
